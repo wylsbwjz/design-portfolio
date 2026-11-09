@@ -550,6 +550,79 @@ body:has(.portfolio-reader[open]) { overflow: hidden; }
 .vibe-projects .project-cover-image { background: var(--panel-2); }
 @media (max-width: 680px) { .vibe-projects { padding-top: 18px; } }
 </style>
+<style>
+.reader-viewport { position: relative; min-width: 0; min-height: 0; }
+.reader-stage { height: 100%; padding-inline: clamp(48px, 5vw, 78px); }
+.reader-stage > img { grid-area: 1 / 1; }
+.reader-stage.is-zoomed { padding-inline: clamp(8px, 1.5vw, 22px); }
+.reader-stage .reader-outgoing { pointer-events: none; }
+.reader-turn {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: clamp(40px, 4vw, 52px);
+  aspect-ratio: 1;
+  transform: translateY(-50%);
+  border: 1px solid #647a9e5c;
+  border-radius: 50%;
+  background: #151e2bea;
+  color: #e3edff;
+  cursor: pointer;
+  transition: background .2s, border-color .2s;
+}
+.reader-turn svg { width: 21px; height: 21px; }
+.reader-turn:hover { background: #2b3c56; border-color: #8da7d2; }
+.reader-turn:disabled { opacity: .28; cursor: default; }
+.reader-turn-prev { left: clamp(7px, 1.5vw, 22px); }
+.reader-turn-next { right: clamp(7px, 1.5vw, 22px); }
+.reader-viewport:has(.is-zoomed) .reader-turn { display: none; }
+.reader-load {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  bottom: 13px;
+  transform: translateX(-50%);
+  padding: 5px 11px;
+  border: 1px solid #43536c;
+  border-radius: 20px;
+  background: #141d2a;
+  color: #dce7fa;
+  font-size: 11px;
+}
+.reader-load button { border: 0; background: none; color: inherit; font: inherit; cursor: pointer; text-decoration: underline; }
+.reader-footer { position: relative; }
+.reader-thumbs { padding-top: 14px; }
+.reader-thumb { transform: translateY(3px); transition: transform .24s, border-color .24s; }
+.reader-thumb img { filter: saturate(.3); transition: filter .24s, opacity .24s; }
+.reader-thumb:is(:hover,:focus-visible,[aria-current="page"]) { transform: translateY(0); }
+.reader-thumb:is(:hover,:focus-visible,[aria-current="page"]) img { filter: none; opacity: 1; }
+.reader-preview {
+  position: absolute;
+  bottom: calc(100% + 11px);
+  left: var(--preview-x);
+  z-index: 4;
+  transform: translateX(-50%);
+  width: min(320px, calc(100% - 24px));
+  padding: 6px;
+  border: 1px solid #526581;
+  border-radius: 9px;
+  background: #121922;
+  box-shadow: 0 14px 42px #02050ac7;
+  pointer-events: none;
+}
+.reader-preview img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: contain; border-radius: 4px; background: #0a0d12; }
+.reader-preview-label { display: block; padding: 6px 3px 2px; color: #b8c9e4; font-size: 10px; letter-spacing: .04em; }
+@media (max-width: 680px) {
+  .reader-stage { padding-inline: 8px; }
+  .reader-turn { width: 34px; background: #151e2bcf; }
+  .reader-turn svg { width: 17px; height: 17px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reader-turn, .reader-thumb, .reader-thumb img { transition: none; }
+}
+</style>
 </head>
 <body>
 
@@ -1121,14 +1194,30 @@ setTimeout(()=>document.querySelectorAll('.reveal:not(.in)').forEach(el=>{const 
       </form>
     </div>
   </header>
-  <div class="reader-stage" id="reader-stage" tabindex="0" role="region" aria-label="作品集页面，可左右滑动翻页">
-    <img id="reader-image" alt="" draggable="false">
+  <div class="reader-viewport">
+    <div class="reader-stage" id="reader-stage" tabindex="0" role="region" aria-label="作品集页面，可左右滑动翻页">
+      <img id="reader-image" alt="" draggable="false">
+    </div>
+    <button class="reader-turn reader-turn-prev" id="reader-stage-prev" type="button" aria-label="在主图上翻到上一页" title="上一页" tabindex="-1">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14.5 5.5-6.5 6.5 6.5 6.5"/></svg>
+    </button>
+    <button class="reader-turn reader-turn-next" id="reader-stage-next" type="button" aria-label="在主图上翻到下一页" title="下一页" tabindex="-1">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9.5 5.5 6.5 6.5-6.5 6.5"/></svg>
+    </button>
+    <div class="reader-load" id="reader-load" hidden>
+      <span id="reader-load-label" role="status"></span>
+      <button type="button" id="reader-retry" hidden>重试</button>
+    </div>
   </div>
   <div class="reader-footer">
+    <div class="reader-preview" id="reader-preview" aria-hidden="true" hidden>
+      <img id="reader-preview-image" alt="">
+      <span class="reader-preview-label" id="reader-preview-label"></span>
+    </div>
     <progress class="reader-progress" id="reader-progress" aria-label="阅读进度"></progress>
     <div class="reader-thumbs" id="reader-thumbs" role="group" aria-label="页面缩略图"></div>
     <div class="reader-nav">
-      <span class="reader-tip" aria-hidden="true">← → 翻页　·　Esc 关闭</span>
+      <span class="reader-tip" aria-hidden="true">悬停预览　·　← → 翻页</span>
       <div class="reader-pagination">
         <button class="reader-button" id="reader-prev" type="button"><span aria-hidden="true">←</span> 上一页</button>
         <select id="reader-page" aria-label="跳转到指定页码"></select>
@@ -1144,75 +1233,184 @@ setTimeout(()=>document.querySelectorAll('.reveal:not(.in)').forEach(el=>{const 
   const get = id => document.getElementById(id);
   const dialog = get('portfolio-reader');
   const title = get('reader-title');
-  const kicker = get('reader-kicker');
   const stage = get('reader-stage');
   const image = get('reader-image');
-  const status = get('reader-status');
-  const progress = get('reader-progress');
   const tray = get('reader-thumbs');
   const select = get('reader-page');
-  const previous = get('reader-prev');
-  const next = get('reader-next');
+  const previous = [get('reader-prev'), get('reader-stage-prev')];
+  const next = [get('reader-next'), get('reader-stage-next')];
   const zoom = get('reader-zoom');
+  const load = get('reader-load');
+  const retry = get('reader-retry');
+  const preview = get('reader-preview');
+  const previewImage = get('reader-preview-image');
+  const thumbData = get('reader-thumbnail-data');
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
-  const pad = page => String(page).padStart(2, '0');
-  let start, end, page, touch, animation;
+  const pad = (number, digits = 2) => String(number).padStart(digits, '0');
+  const asset = (folder, number) => `assets/${folder}/page-${pad(number, 3)}.webp`;
+  const cache = new Map();
+  let thumbImages, start, end, page, requested, touch, previewTimer, loadTimer, outgoing;
   let version = 0;
+  let previewVersion = 0;
+
+  function pageSource(number) {
+    if (!thumbData) return asset('pages', number);
+    const source = document.querySelector(`[data-portfolio-page="${number}"]`);
+    return source instanceof HTMLImageElement ? source.src : 'data:image/webp;base64,' + source.textContent;
+  }
+
+  function prepare(number) {
+    if (cache.has(number)) return cache.get(number);
+    const prepared = new Image();
+    prepared.src = pageSource(number);
+    const ready = prepared.decode().then(() => prepared.src).catch(error => {
+      if (cache.get(number) === ready) cache.delete(number);
+      throw error;
+    });
+    cache.set(number, ready);
+    if (cache.size > 10) cache.delete(cache.keys().next().value);
+    return ready;
+  }
+
+  function hidePreview() {
+    previewVersion++;
+    clearTimeout(previewTimer);
+    preview.hidden = true;
+    previewImage.removeAttribute('src');
+  }
+
+  function queuePreview(thumb, number) {
+    hidePreview();
+    const ticket = previewVersion;
+    previewTimer = setTimeout(() => {
+      if (!dialog.open) return;
+      const footer = preview.parentElement.getBoundingClientRect();
+      const card = thumb.getBoundingClientRect();
+      const half = Math.min(320, footer.width - 24) / 2;
+      const center = card.left + card.width / 2 - footer.left;
+      preview.style.setProperty('--preview-x', Math.min(footer.width - half - 10, Math.max(half + 10, center)) + 'px');
+      get('reader-preview-label').textContent = `第 ${pad(number - start + 1)} 页 · 点击缩略图翻页`;
+      previewImage.src = thumb.querySelector('img').src;
+      preview.hidden = false;
+      prepare(number).then(url => {
+        if (ticket === previewVersion && !preview.hidden) previewImage.src = url;
+      }).catch(() => {});
+    }, 145);
+  }
 
   function setZoom(enabled) {
     stage.classList.toggle('is-zoomed', enabled);
     zoom.setAttribute('aria-pressed', String(enabled));
     get('reader-zoom-label').textContent = enabled ? '适应屏幕' : '放大';
-    stage.setAttribute('aria-label', enabled ? '放大的作品集页面，可滚动查看' : '作品集页面，可左右滑动翻页');
+    stage.setAttribute('aria-label', enabled ? '放大的作品集页面，可滚动查看' : '作品集页面，可点击左右箭头或滑动翻页');
     stage.scrollTo(0, 0);
+    hidePreview();
   }
 
-  function showPage(target, focusThumb = false) {
-    if (target < start || target > end || target === page) return;
-    const oldThumb = tray.children[page - start];
-    if (oldThumb) {
-      oldThumb.removeAttribute('aria-current');
-      oldThumb.tabIndex = -1;
-    }
-    const animate = page !== undefined && !motion.matches;
-    page = target;
-    const position = page - start;
-    const label = `第 ${position + 1} / ${end - start + 1} 页`;
-    image.alt = `${title.textContent} · ${label}`;
-    animation?.cancel();
-    image.src = `assets/pages/page-${String(page).padStart(3, '0')}.webp`;
-    const ticket = ++version;
-    if (animate) {
-      image.decode().then(() => {
-        if (ticket === version && dialog.open) animation = image.animate([{opacity:.7},{opacity:1}], {duration:170,easing:'ease-out'});
-      }).catch(() => {});
-    }
-    status.textContent = label;
-    select.value = String(page);
-    previous.disabled = page === start;
-    next.disabled = page === end;
-    progress.value = position + 1;
-    stage.scrollTo(0, 0);
+  function clearTransition() {
+    image.getAnimations().forEach(animation => animation.cancel());
+    outgoing?.remove();
+    outgoing = undefined;
+  }
 
-    const thumb = tray.children[position];
-    thumb.setAttribute('aria-current', 'page');
-    thumb.tabIndex = 0;
-    const tile = thumb.getBoundingClientRect();
-    const strip = tray.getBoundingClientRect();
-    const leftGap = tile.left - strip.left;
-    const rightGap = strip.right - tile.right;
-    if (leftGap < 10 || rightGap < 10) {
-      tray.scrollBy({left: leftGap - (strip.width - tile.width) / 2, behavior: motion.matches ? 'instant' : 'smooth'});
+  function reveal(url, direction) {
+    clearTransition();
+    const slide = direction && !motion.matches && !stage.classList.contains('is-zoomed');
+    if (slide) {
+      outgoing = image.cloneNode(false);
+      outgoing.removeAttribute('id');
+      outgoing.alt = '';
+      outgoing.className = 'reader-outgoing';
+      outgoing.setAttribute('aria-hidden', 'true');
+      stage.append(outgoing);
     }
-    if (focusThumb) thumb.focus({preventScroll: true});
+    image.src = url;
+    if (!slide) return;
+    const timing = {duration: 350, easing: 'cubic-bezier(.22,1,.36,1)'};
+    const old = outgoing;
+    image.animate([{opacity:0, transform:`translateY(${direction * 19}px)`}, {opacity:1, transform:'translateY(0)'}], timing);
+    old.animate([{opacity:1, transform:'translateY(0)'}, {opacity:0, transform:`translateY(${direction * -15}px)`}], timing)
+      .finished.then(() => old.remove(), () => old.remove());
+  }
+
+  function setArrows(number) {
+    previous.forEach(button => { button.disabled = number <= start; });
+    next.forEach(button => { button.disabled = number >= end; });
+  }
+
+  function stopLoading() {
+    clearTimeout(loadTimer);
+    stage.removeAttribute('aria-busy');
+    load.hidden = true;
+    retry.hidden = true;
+  }
+
+  function selectPage(target, focusThumb = false) {
+    if (target < start || target > end || target === requested) return;
+    requested = target;
+    const ticket = ++version;
+    hidePreview();
+    stopLoading();
+    setArrows(target);
+    stage.setAttribute('aria-busy', 'true');
+    loadTimer = setTimeout(() => {
+      get('reader-load-label').textContent = '正在打开页面…';
+      load.hidden = false;
+    }, 180);
+
+    prepare(target).then(url => {
+      if (ticket !== version || !dialog.open) return;
+      stopLoading();
+      const oldThumb = tray.children[page - start];
+      if (oldThumb) {
+        oldThumb.removeAttribute('aria-current');
+        oldThumb.tabIndex = -1;
+      }
+      reveal(url, page === undefined ? 0 : Math.sign(target - page));
+      page = target;
+      const position = page - start;
+      const label = `第 ${position + 1} / ${end - start + 1} 页`;
+      image.alt = `${title.textContent} · ${label}`;
+      get('reader-status').textContent = label;
+      get('reader-progress').value = position + 1;
+      select.value = String(page);
+      stage.scrollTo(0, 0);
+
+      const thumb = tray.children[position];
+      thumb.setAttribute('aria-current', 'page');
+      thumb.tabIndex = 0;
+      const tile = thumb.getBoundingClientRect();
+      const strip = tray.getBoundingClientRect();
+      if (tile.left - strip.left < 10 || strip.right - tile.right < 10) {
+        tray.scrollBy({left: tile.left - strip.left - (strip.width - tile.width) / 2, behavior: motion.matches ? 'instant' : 'smooth'});
+      }
+      if (focusThumb) thumb.focus({preventScroll: true});
+      for (const neighbor of [page - 1, page + 1]) {
+        if (neighbor >= start && neighbor <= end) prepare(neighbor).catch(() => {});
+      }
+    }).catch(() => {
+      if (ticket !== version || !dialog.open) return;
+      stopLoading();
+      requested = page;
+      setArrows(page ?? start);
+      select.value = String(page ?? start);
+      get('reader-load-label').textContent = '页面加载失败';
+      retry.onclick = () => selectPage(target);
+      retry.hidden = false;
+      load.hidden = false;
+    });
   }
 
   function open(button) {
+    clearTransition();
+    image.removeAttribute('src');
+    image.alt = '';
     [start, end] = button.dataset.pages.split(':').map(Number);
     const total = end - start + 1;
     const caseTitle = /^(\d+) · (.+)$/.exec(button.dataset.readerTitle);
-    kicker.textContent = caseTitle ? `PROJECT ${caseTitle[1]} / CASE STUDY` : 'DESIGN PORTFOLIO / FULL EDITION';
+    get('reader-kicker').textContent = caseTitle ? `PROJECT ${caseTitle[1]} / CASE STUDY` : 'DESIGN PORTFOLIO / FULL EDITION';
     title.textContent = caseTitle ? caseTitle[2] : button.dataset.readerTitle;
+    if (thumbData) thumbImages ??= JSON.parse(thumbData.textContent);
     const thumbs = document.createDocumentFragment();
     const options = document.createDocumentFragment();
     for (let number = start; number <= end; number++) {
@@ -1222,27 +1420,36 @@ setTimeout(()=>document.querySelectorAll('.reveal:not(.in)').forEach(el=>{const 
       thumb.className = 'reader-thumb';
       thumb.tabIndex = -1;
       thumb.setAttribute('aria-label', `第 ${position} 页`);
-      const preview = new Image(180, 101);
-      preview.src = `assets/thumbs/page-${String(number).padStart(3, '0')}.webp`;
-      preview.alt = '';
-      preview.decoding = 'async';
-      preview.loading = 'lazy';
+      const picture = new Image(180, 101);
+      picture.src = thumbData ? 'data:image/webp;base64,' + thumbImages[number - 1] : asset('thumbs', number);
+      picture.alt = '';
+      picture.decoding = 'async';
+      picture.loading = 'lazy';
       const tag = document.createElement('span');
       tag.textContent = pad(position);
-      thumb.append(preview, tag);
-      thumb.addEventListener('click', () => showPage(number));
+      thumb.append(picture, tag);
+      thumb.addEventListener('click', () => selectPage(number));
+      thumb.addEventListener('pointerenter', event => {
+        if (event.pointerType === 'mouse') queuePreview(thumb, number);
+      });
+      thumb.addEventListener('pointerleave', hidePreview);
+      thumb.addEventListener('focus', () => {
+        if (thumb.matches(':focus-visible')) queuePreview(thumb, number);
+      });
+      thumb.addEventListener('blur', hidePreview);
       thumbs.append(thumb);
       options.append(new Option(`${pad(position)} / ${pad(total)}`, String(number)));
     }
     tray.replaceChildren(thumbs);
     select.replaceChildren(options);
-    progress.max = total;
+    get('reader-progress').max = total;
+    get('reader-progress').value = 0;
     get('reader-total').textContent = `共 ${total} 页`;
-    page = undefined;
+    page = requested = undefined;
     setZoom(false);
     dialog.showModal();
     tray.scrollLeft = 0;
-    showPage(start);
+    selectPage(start);
   }
 
   document.querySelectorAll('[data-pages]').forEach(button => {
@@ -1255,24 +1462,27 @@ setTimeout(()=>document.querySelectorAll('.reveal:not(.in)').forEach(el=>{const 
     });
   });
 
-  previous.addEventListener('click', () => showPage(page - 1));
-  next.addEventListener('click', () => showPage(page + 1));
-  select.addEventListener('change', () => showPage(Number(select.value)));
+  const turn = direction => selectPage((requested ?? start) + direction);
+  previous.forEach(button => button.addEventListener('click', () => turn(-1)));
+  next.forEach(button => button.addEventListener('click', () => turn(1)));
+  select.addEventListener('change', () => selectPage(Number(select.value)));
+  tray.addEventListener('scroll', hidePreview, {passive:true});
   zoom.addEventListener('click', () => {
     const enabled = zoom.getAttribute('aria-pressed') === 'false';
     setZoom(enabled);
     if (enabled) stage.focus({preventScroll: true});
   });
   dialog.addEventListener('keydown', event => {
-    if (event.target === select || (event.target === stage && stage.classList.contains('is-zoomed'))) return;
+    if (event.altKey || event.ctrlKey || event.metaKey || event.target === select ||
+        (event.target === stage && stage.classList.contains('is-zoomed'))) return;
     let target;
-    if (event.key === 'ArrowLeft') target = page - 1;
-    if (event.key === 'ArrowRight') target = page + 1;
+    if (event.key === 'ArrowLeft') target = (requested ?? start) - 1;
+    if (event.key === 'ArrowRight') target = (requested ?? start) + 1;
     if (event.key === 'Home') target = start;
     if (event.key === 'End') target = end;
     if (target !== undefined) {
       event.preventDefault();
-      showPage(target, tray.contains(event.target));
+      selectPage(target, tray.contains(event.target));
     }
   });
   stage.addEventListener('touchstart', event => {
@@ -1281,11 +1491,11 @@ setTimeout(()=>document.querySelectorAll('.reveal:not(.in)').forEach(el=>{const 
   stage.addEventListener('touchcancel', () => { touch = null; }, {passive: true});
   stage.addEventListener('touchend', event => {
     if (!touch || event.touches.length) return;
-    const endTouch = [...event.changedTouches].find(point => point.identifier === touch.identifier);
-    if (endTouch) {
-      const dx = endTouch.clientX - touch.clientX;
-      const dy = endTouch.clientY - touch.clientY;
-      if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.45) showPage(page + (dx < 0 ? 1 : -1));
+    const point = [...event.changedTouches].find(item => item.identifier === touch.identifier);
+    if (point) {
+      const dx = point.clientX - touch.clientX;
+      const dy = point.clientY - touch.clientY;
+      if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.45) turn(dx < 0 ? 1 : -1);
     }
     touch = null;
   }, {passive: true});
@@ -1297,9 +1507,12 @@ setTimeout(()=>document.querySelectorAll('.reveal:not(.in)').forEach(el=>{const 
   dialog.addEventListener('close', () => {
     if (dialog.open) return;
     version++;
-    animation?.cancel();
+    clearTransition();
+    stopLoading();
+    hidePreview();
     image.removeAttribute('src');
     tray.replaceChildren();
+    cache.clear();
     touch = null;
   });
 })();
