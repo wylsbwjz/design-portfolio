@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta property="og:type" content="website">
+<meta property="og:title" content="巩航宇 · 设计作品集 2026">
+<meta property="og:description" content="UX、产品设计、平面创意及 Vibe Coding 演示。">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="巩航宇的设计作品集，包含 UX、产品设计和平面创意项目。">
+<title>巩航宇 · 设计作品集 2026</title>
+<style>
+  :root{
+    --base:#0A0C0F;--panel:#141820;--panel-2:#0f1218;--line:#252B36;--line-soft:#1c2230;
+    --ink:#EAEEF5;--ink-2:#9AA4B2;--ink-3:#5b6675;--blue:#2F6BFF;--blue-soft:#5b8bff;
+    --mono:'JetBrains Mono',monospace;--disp:'Archivo','Noto Sans SC',sans-serif;--body:'Noto Sans SC','Archivo',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--base);color:var(--ink);font-family:'Poppins',var(--body);font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  ::selection{background:#fff;color:#0A0C0F}
+  a{color:inherit;text-decoration:none}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+    padding:20px 6vw;backdrop-filter:blur(10px);background:linear-gradient(180deg,rgba(10,12,15,.7),rgba(10,12,15,0));transition:opacity .5s;opacity:0}
+  nav.show{opacity:1}
+  nav .brand{font-family:'Poppins',var(--disp);font-weight:800;letter-spacing:.18em;font-size:13px}
+  nav .brand b{color:var(--ink-2)}
+  nav .links a{font-family:'Poppins',var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.12em;margin-left:24px;transition:.2s}
+  nav .links a:hover{color:var(--ink)}
+  @media(max-width:680px){nav .links{display:none}}
+
+  .cover{position:relative;height:100vh;width:100%;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  #dots{position:absolute;inset:0;z-index:0}
+  .cover .vignette{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 70% 70% at 50% 60%,transparent 30%,var(--base) 100%)}
+  .cover .top{position:absolute;top:8vh;left:0;right:0;text-align:center;z-index:2;font-family:'Poppins',var(--disp);font-weight:300;font-size:clamp(18px,2.4vw,26px);letter-spacing:.04em;color:var(--ink-2);opacity:0;animation:fade 1.2s .3s forwards}
+  .cover .title{position:relative;z-index:2;text-align:center}
+  .cover .title h1{font-family:'Poppins',var(--disp);font-weight:300;font-size:clamp(46px,11vw,150px);letter-spacing:clamp(.04em,1.2vw,.16em);line-height:1;color:#fff;white-space:nowrap}
+  .cover .title h1 span{display:inline-block;opacity:0;transform:translateY(28px);animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards}
+  .cover .sub{margin-top:26px;font-family:'Poppins',var(--mono);font-size:clamp(11px,1.4vw,14px);letter-spacing:.42em;color:var(--ink-3);text-transform:uppercase;opacity:0;animation:fade 1.4s 1.1s forwards}
+  .cover .year{position:absolute;bottom:8vh;left:0;right:0;text-align:center;z-index:2;font-family:'Poppins',var(--disp);font-weight:300;font-size:clamp(16px,2vw,22px);letter-spacing:.1em;color:var(--ink-2);opacity:0;animation:fade 1.2s 1.3s forwards}
+  .cover .scrolldown{position:absolute;bottom:2.4vh;left:50%;transform:translateX(-50%);z-index:3;font-family:'Poppins',var(--mono);font-size:10px;letter-spacing:.3em;color:var(--ink-3);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fade 1.2s 1.6s forwards}
+  .cover .year{bottom:12vh}
+  .cover .scrolldown .bar{width:1px;height:34px;background:linear-gradient(var(--ink-3),transparent);animation:slide 1.8s infinite}
+  @keyframes rise{to{opacity:1;transform:none}}
+  @keyframes fade{to{opacity:1}}
+  @keyframes slide{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}50.1%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+  .intro{position:relative;z-index:1;padding:16vh 6vw 12vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+  #aboutgrid{position:absolute;inset:0;z-index:0;display:block;pointer-events:none}
+  .intro-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;width:100%}
+  .about-eyebrow{font-family:'Poppins',var(--mono);font-size:11px;letter-spacing:.32em;color:var(--ink-3);text-transform:uppercase;margin-bottom:40px}
+  .about-name{font-family:'Poppins',var(--disp);font-weight:300;line-height:1;font-size:clamp(56px,11vw,150px);letter-spacing:.02em;color:#fff;display:flex;align-items:baseline;flex-wrap:wrap;gap:0 .35em}
+  .about-name .en{font-family:'Poppins',var(--disp);font-weight:300;font-size:.28em;letter-spacing:.18em;color:var(--ink-3);text-transform:uppercase}
+  .about-lead{font-size:clamp(16px,1.9vw,21px);color:var(--ink-2);max-width:640px;margin-top:48px;font-weight:300;line-height:1.85}
+  .about-lead em{font-style:normal;color:#fff;font-weight:400}
+  .about-meta{margin-top:64px;max-width:560px;border-top:1px solid var(--line-soft)}
+  .about-meta .meta-row{display:flex;gap:28px;padding:18px 2px;border-bottom:1px solid var(--line-soft)}
+  .about-meta .ml{font-family:'Poppins',var(--mono);font-size:11px;letter-spacing:.18em;color:var(--ink-3);text-transform:uppercase;min-width:64px;padding-top:3px}
+  .about-meta .mv{font-size:15px;color:var(--ink);font-weight:300}
+  .about-skills{margin-top:46px;font-family:'Poppins',var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--ink-2);line-height:2.2;max-width:760px}
+  .about-skills span{color:var(--ink-3);margin:0 6px}
+
+  /* collapsible whole-block About */
+  .about-fold{overflow:hidden;height:0;opacity:0;transition:height .7s cubic-bezier(.2,.7,.2,1),opacity .55s ease}
+  .about-fold.open{opacity:1}
+  /* trigger row — the only thing visible when collapsed */
+  .about-trigger{display:inline-flex;align-items:center;gap:16px;background:none;border:none;cursor:pointer;padding:0;
+    font-family:'Poppins',var(--disp);font-weight:300;color:var(--ink);transition:color .3s;
+    font-size:clamp(28px,5vw,56px);letter-spacing:.02em;line-height:1}
+  .about-trigger .at-en{font-family:'Poppins',var(--disp);font-weight:300;color:var(--ink-3);font-size:.42em;letter-spacing:.12em}
+  .about-trigger:hover{color:#fff}
+  .about-eyebrow{margin-top:8px}
+
+  /* ===== split-scroll project directory ===== */
+  .work{position:relative;z-index:1;padding:0 0 0 0;max-width:none;margin:0}
+  .work .sec-head{max-width:1480px;margin:0 auto 0;padding:80px 6vw 22px}
+  .dirscroll{position:relative}
+  .dirstage{display:grid;grid-template-columns:1fr 1fr;gap:0;max-width:1480px;margin:0 auto;padding:0 6vw;height:100%}
+  /* left: pinned text column */
+  .dirleft{position:relative;height:100%}
+  .dirleft .sticky{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;padding-right:5%}
+  .ditem{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding-right:5%;opacity:0;transform:translateY(24px);transition:opacity .45s ease,transform .45s ease;pointer-events:none;visibility:hidden}
+  .ditem.on{opacity:1;transform:none;pointer-events:auto;visibility:visible;transition:opacity .55s ease .12s,transform .55s ease .12s}
+  .ditem .dn{font-family:'Poppins',var(--disp);font-weight:900;font-size:clamp(60px,8vw,110px);line-height:.85;color:transparent;-webkit-text-stroke:1.5px var(--line);letter-spacing:-.02em;margin-bottom:18px}
+  .ditem.on .dn{-webkit-text-stroke-color:var(--ink-3)}
+  .ditem .den{font-family:'Poppins',var(--disp);font-weight:800;font-size:clamp(26px,3.4vw,44px);line-height:1.05;letter-spacing:-.01em;color:#fff}
+  .ditem .dzh{font-size:clamp(15px,1.7vw,18px);color:var(--ink-2);margin-top:14px;font-weight:400}
+  .ditem .dtag{font-family:'Poppins',var(--mono);font-size:11px;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase;margin-top:10px}
+  .ditem .ddesc{font-size:14px;color:var(--ink-2);line-height:1.75;font-weight:300;margin-top:22px;max-width:420px}
+  .ditem .dlink{display:inline-flex;align-items:center;gap:10px;margin-top:30px;font-family:'Poppins',var(--mono);font-size:12px;letter-spacing:.08em;color:var(--ink);border:1px solid var(--line);border-radius:100px;padding:11px 20px;width:fit-content;transition:.3s;cursor:pointer}
+  .ditem .dlink:hover{background:#fff;color:var(--base);border-color:#fff}
+  .ditem .dlink.soon{color:var(--ink-3);cursor:default}
+  .ditem .dlink.soon:hover{background:transparent;color:var(--ink-3);border-color:var(--line)}
+  .ditem .dlink .ar{transition:transform .3s}
+  .ditem .dlink:hover .ar{transform:translateX(3px)}
+  /* right: pinned image stack with mask reveal */
+  .dirright{position:relative;height:100%}
+  .dirright .sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center}
+  .imgstack{position:relative;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;box-shadow:0 40px 90px -40px rgba(0,0,0,.7)}
+  .imgwrap{position:absolute;inset:0;overflow:hidden;will-change:opacity,clip-path,transform}
+  .imgwrap img{width:100%;height:100%;object-fit:cover;will-change:transform}
+  .dprogress{position:absolute;left:6vw;right:6vw;bottom:34px;max-width:1480px;margin:0 auto;height:2px;background:var(--line-soft);z-index:5}
+  .dprogress i{position:absolute;left:0;top:0;height:100%;background:#fff;width:0;transition:width .3s}
+  @media(max-width:880px){
+    .dirstage{grid-template-columns:1fr}
+    .dirleft{display:none}
+    .dirright .sticky{height:auto;padding:30px 0}
+    .imgstack{aspect-ratio:16/9}
+    .dirscroll{padding:0 6vw}
+    .dmobile{display:block}
+  }
+  .dmobile{display:none}
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;border-bottom:1px solid var(--line);flex-wrap:wrap;gap:12px}
+  .sec-head h2{font-family:'Poppins',var(--disp);font-weight:800;font-size:clamp(22px,3vw,32px);letter-spacing:.02em}
+  .sec-head h2 .zh{font-family:'Poppins',var(--body);font-weight:700;color:var(--ink-2);font-size:.62em;margin-left:14px}
+  .sec-head .count{font-family:'Poppins',var(--mono);font-size:12px;color:var(--ink-3);letter-spacing:.1em}
+
+  /* ===== gallery entry (after the project directory) — directory-style rows ===== */
+  .gallery-entry{position:relative;z-index:1;max-width:1480px;margin:0 auto;padding:clamp(56px,8vh,90px) 6vw 30px}
+  .gallery-entry .ge-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px;
+    border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:8px}
+  .gallery-entry .ge-head h2{font-family:'Poppins',var(--disp);font-weight:800;font-size:clamp(20px,2.6vw,28px);letter-spacing:.02em}
+  .gallery-entry .ge-head h2 .zh{font-family:'Poppins',var(--body);font-weight:700;color:var(--ink-2);font-size:.62em;margin-left:14px}
+  .gallery-entry .ge-head .ge-note{font-family:'Poppins',var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.1em}
+  .ge-rows{display:flex;flex-direction:column}
+  .ge-row{display:flex;align-items:center;gap:clamp(20px,4vw,52px);padding:30px 4px;border-bottom:1px solid var(--line-soft);transition:padding-left .35s}
+  .ge-row:hover{padding-left:14px}
+  .ge-row .ge-n{font-family:'Poppins',var(--disp);font-weight:900;font-size:clamp(40px,6vw,80px);line-height:.85;color:transparent;
+    -webkit-text-stroke:1.5px var(--line);letter-spacing:-.02em;flex:none;transition:-webkit-text-stroke-color .35s,color .35s}
+  .ge-row:hover .ge-n{-webkit-text-stroke-color:var(--ink-3)}
+  .ge-body{flex:1;min-width:0}
+  .ge-row .ge-title{font-family:'Poppins',var(--disp);font-weight:800;font-size:clamp(22px,2.8vw,34px);line-height:1.05;letter-spacing:-.01em;color:#fff}
+  .ge-row .ge-zh{font-size:clamp(13px,1.5vw,16px);color:var(--ink-2);margin-top:8px;font-weight:400}
+  .ge-row .ge-zh .ge-klabel{font-family:'Poppins',var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-right:12px}
+  .ge-row .ge-go{flex:none;display:inline-flex;align-items:center;gap:9px;font-family:'Poppins',var(--mono);font-size:12px;letter-spacing:.08em;color:var(--ink-3);transition:color .3s}
+  .ge-row:hover .ge-go{color:#fff}
+  .ge-row .ge-go .ar{transition:transform .35s}
+  .ge-row:hover .ge-go .ar{transform:translateX(5px)}
+  @media(max-width:680px){
+    .ge-row{gap:16px}
+    .ge-row .ge-go span:not(.ar){display:none}
+  }
+
+  footer{position:relative;z-index:1;border-top:1px solid var(--line);padding:50px 6vw;max-width:1480px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px}
+  footer .ct a{font-family:'Poppins',var(--mono);font-size:13px;color:var(--ink-2);margin-right:22px;transition:.2s}
+  footer .ct a:hover{color:#fff}
+  footer .cr{font-family:'Poppins',var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.08em}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    .reveal,.cover .title h1 span,.cover .top,.cover .sub,.cover .year,.cover .scrolldown{opacity:1!important;transform:none!important;animation:none!important}
+    *{animation:none!important}
+  }
+
+  :focus-visible{outline:2px solid var(--blue-soft);outline-offset:5px}
+  #work,#about,#vibe-coding{scroll-margin-top:70px}
+  .project-index{max-width:1480px;margin:0 auto;padding:22px 6vw 0;display:flex;flex-wrap:wrap;gap:12px 22px}
+  .project-index a{font-size:11px;font-family:'Poppins',var(--mono);color:var(--ink-2);transition:color .2s}
+  .project-index a:hover{color:#fff}
+  .project-index a span{color:var(--ink-3);margin-right:6px}
+  @media(max-width:880px){
+    .dirstage,.dprogress{display:none}
+    .dmobile{display:block}
+    .dirscroll{height:auto!important;padding-top:30px}
+    .project-index{gap:12px 18px}
+    nav .links{display:flex}nav .links a{margin-left:14px;font-size:10px}
+
+  }
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none}}
+</style>
+<style>.project-cover-grid{max-width:1480px;margin:0 auto;padding:32px 6vw 40px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:44px 28px}
+.project-cover{display:block;position:relative;min-width:0;color:#ecf0f6;text-decoration:none;border-radius:8px;transform:perspective(1000px) translateY(0) rotateX(0) rotateY(0);transition:transform .45s cubic-bezier(.22,1,.36,1);--rx:0deg;--ry:0deg}
+.project-cover-image{position:relative;isolation:isolate;aspect-ratio:16/9;overflow:hidden;border:1px solid #2c3440;border-radius:6px;background:#141920;transition:transform .35s,border-color .25s,box-shadow .3s}
+.project-cover-image img{display:block;width:100%;height:100%;object-fit:contain}
+.project-cover-meta{display:flex;align-items:baseline;gap:10px;padding:17px 1px 0}
+.project-cover-number{font:400 10px/1.6 'Poppins',sans-serif;color:#718097;flex:none}
+.project-cover-meta>div{min-width:0;flex:1}
+.project-cover h3{font:600 19px/1.5 'Poppins','Noto Sans SC',sans-serif;margin:0;overflow-wrap:anywhere}
+.project-cover p{font-size:12px;line-height:1.7;color:#8f99a7;margin:5px 0 0}
+.project-cover-arrow{font-size:14px;color:#8295af;flex:none}
+.project-cover:focus-visible{transform:translateY(-8px)}
+.project-cover:focus-visible .project-cover-image{border-color:#b8cceb;box-shadow:0 24px 46px #0008,0 0 24px #aacbff18}
+@media(hover:hover) and (pointer:fine){.project-cover:hover{transform:perspective(1000px) translateY(-9px) rotateX(var(--rx)) rotateY(var(--ry));z-index:2}.project-cover:hover .project-cover-image{border-color:#b8cceb;box-shadow:0 24px 46px #0008,0 0 24px #aacbff18}}
+.project-cover:hover .project-cover-arrow{color:#e6efff}
+
+@media(max-width:680px){.project-cover-grid{grid-template-columns:repeat(2,minmax(0,1fr));padding-top:24px;gap:26px 14px}.project-cover-meta{gap:7px;padding-top:10px}.project-cover h3{font-size:12px}.project-cover p{font-size:10px}.project-cover-number{font-size:9px}.project-cover-arrow{display:none}}
+@media(prefers-reduced-motion:reduce){.project-cover,.project-cover-image{transition:none;transform:none!important}.card-particles{display:none}}
+
+.card-particles{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2;mix-blend-mode:screen;opacity:0;transition:opacity .3s}
+.project-cover[data-particles="active"] .card-particles{opacity:1}
+.project-cover-image{user-select:none;-webkit-user-select:none}.project-cover-image img{-webkit-user-drag:none}
+</style><style>.cover{background:#030407}
+#dots,.particle-fallback{position:absolute;inset:0;z-index:0;pointer-events:none}
+.cover .vignette{background:radial-gradient(ellipse 47% 20% at 50% 51%,rgba(3,4,7,.64),transparent 100%),linear-gradient(0deg,#0a0c0f 0%,transparent 22%,transparent 80%,rgba(3,4,7,.4) 100%)}
+.cover .title h1{text-shadow:0 3px 30px #000,0 1px 5px #0009}
+.cover .sub{color:#a5adbd;text-shadow:0 2px 10px #000}
+.cover .top,.cover .year{color:#bec6d4;text-shadow:0 2px 12px #000}
+.cover .scrolldown{color:#a1aabd}
+@media(prefers-reduced-motion:reduce){.cover .title h1 span,.cover .top,.cover .sub,.cover .year,.cover .scrolldown{animation:none;opacity:1;transform:none}}
+</style><style>/* Poppins embedded from the supplied font archive; Chinese retains its existing fonts. */
+@font-face {
+  font-family: 'Poppins';
+  src: url("assets/fonts/poppins-01.woff") format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-024F, U+1E00-1EFF, U+2000-206F, U+20A0-20CF;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url("assets/fonts/poppins-02.woff") format('woff');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0000-024F, U+1E00-1EFF, U+2000-206F, U+20A0-20CF;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url("assets/fonts/poppins-03.woff") format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-024F, U+1E00-1EFF, U+2000-206F, U+20A0-20CF;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url("assets/fonts/poppins-04.woff") format('woff');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0000-024F, U+1E00-1EFF, U+2000-206F, U+20A0-20CF;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url("assets/fonts/poppins-05.woff") format('woff');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-024F, U+1E00-1EFF, U+2000-206F, U+20A0-20CF;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url("assets/fonts/poppins-06.woff") format('woff');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0000-024F, U+1E00-1EFF, U+2000-206F, U+20A0-20CF;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url("assets/fonts/poppins-07.woff") format('woff');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-024F, U+1E00-1EFF, U+2000-206F, U+20A0-20CF;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url("assets/fonts/poppins-08.woff") format('woff');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0000-024F, U+1E00-1EFF, U+2000-206F, U+20A0-20CF;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url("assets/fonts/poppins-09.woff") format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0000-024F, U+1E00-1EFF, U+2000-206F, U+20A0-20CF;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url("assets/fonts/poppins-10.woff") format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-024F, U+1E00-1EFF, U+2000-206F, U+20A0-20CF;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url("assets/fonts/poppins-11.woff") format('woff');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0000-024F, U+1E00-1EFF, U+2000-206F, U+20A0-20CF;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url("assets/fonts/poppins-12.woff") format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-024F, U+1E00-1EFF, U+2000-206F, U+20A0-20CF;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url("assets/fonts/poppins-13.woff") format('woff');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0000-024F, U+1E00-1EFF, U+2000-206F, U+20A0-20CF;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url("assets/fonts/poppins-14.woff") format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-024F, U+1E00-1EFF, U+2000-206F, U+20A0-20CF;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url("assets/fonts/poppins-15.woff") format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-024F, U+1E00-1EFF, U+2000-206F, U+20A0-20CF;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url("assets/fonts/poppins-16.woff") format('woff');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0000-024F, U+1E00-1EFF, U+2000-206F, U+20A0-20CF;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url("assets/fonts/poppins-17.woff") format('woff');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-024F, U+1E00-1EFF, U+2000-206F, U+20A0-20CF;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url("assets/fonts/poppins-18.woff") format('woff');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0000-024F, U+1E00-1EFF, U+2000-206F, U+20A0-20CF;
+}
+</style><style>
+
+#vibe-coding, .project-cover { scroll-margin-top: 75px; }
+.toc { max-width: 1480px; margin: 0 auto; padding: 26px 6vw 12px; }
+.toc-all {
+  padding: 6px 0; border: 0; border-bottom: 1px solid var(--line);
+  background: none; color: var(--ink-2); cursor: pointer; font: inherit; font-size: 11px;
+}
+.toc-all:hover { color: #fff; border-color: #b8d2ff; }
+.toc-scroll { overflow-x: auto; scrollbar-color: #53617b var(--panel); border: 1px solid var(--line); border-radius: 6px; }
+.toc-spread { display: flex; min-width: 630px; }
+.toc-sheet { position: relative; flex: 1 1 50%; min-width: 0; aspect-ratio: 16 / 9; }
+.toc-sheet img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.toc-links { position: absolute; inset: 4.7% 0 2.8%; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.toc-link { display: flex; align-items: flex-end; justify-content: center; padding: 0 4px 7px; transition: background .18s, box-shadow .18s; }
+.toc-link span {
+  opacity: 0; padding: 3px 7px; border-radius: 3px; color: #fff; background: #101726;
+  font-size: clamp(8px, 1vw, 11px); white-space: nowrap;
+}
+.toc-spread:has(.toc-link:hover) .toc-link:not(:hover),
+.toc-spread:not(:has(.toc-link:hover)):has(.toc-link:focus-visible) .toc-link:not(:focus-visible) { background: #070a11a0; }
+.toc-link:hover, .toc-spread:not(:has(.toc-link:hover)) .toc-link:focus-visible {
+  box-shadow: inset 0 0 0 2px #d6e5ff; outline: none; background: #c2d9ff21;
+}
+.toc-link:hover span, .toc-spread:not(:has(.toc-link:hover)) .toc-link:focus-visible span { opacity: 1; }
+.toc-spread:has(.toc-link:hover) .toc-link:focus-visible:not(:hover) { outline: 1px dashed #d6e5ff; outline-offset: -3px; }
+.vibe-row:hover { padding-left: 4px; }
+.vibe-row .ge-n { min-width: 1.25em; font-variant-numeric: tabular-nums; }
+.vibe-row .ge-go { color: var(--ink-2); }
+@media (max-width: 680px) {
+  nav .brand { font-size: 10px; }
+  nav .links { display: flex; gap: 8px; }
+  nav .links a { margin-left: 0; font-size: 9px; }
+  .toc { padding-top: 18px; }
+}
+@media (prefers-reduced-motion: reduce) { .toc-link { transition: none; } }
+
+</style>
+<style>
+.toc { padding-top: clamp(18px, 3vw, 36px); padding-bottom: 0; }
+.toc-sheet { aspect-ratio: 1920 / 994; overflow: hidden; }
+.toc-sheet img { position: absolute; top: -5.332%; height: auto; aspect-ratio: 16 / 9; }
+.toc-links { inset: 0; }
+.toc-all { flex: none; }
+.project-showcase { margin-top: clamp(52px, 6vw, 84px); }
+.work .project-showcase .sec-head { padding-top: 0; }
+.project-showcase .project-cover-grid { padding-top: clamp(24px, 3vw, 40px); }
+
+body:has(.portfolio-reader[open]) { overflow: hidden; }
+.portfolio-reader {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: min(1540px, calc(100% - 48px));
+  height: min(1050px, calc(100dvh - 44px));
+  max-width: none;
+  max-height: none;
+  border: 1px solid #2c3441;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #0e1117;
+  color: var(--ink);
+  box-shadow: 0 30px 100px #0009;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+}
+.portfolio-reader[open] { display: grid; }
+.portfolio-reader::backdrop { background: #040608e6; backdrop-filter: blur(9px); }
+.reader-header, .reader-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 18px;
+  padding-inline: clamp(12px, 2.3vw, 30px);
+}
+.reader-header { min-height: 72px; padding-block: 12px; border-bottom: 1px solid #242b36; }
+.reader-heading { min-width: 0; }
+.reader-kicker {
+  margin-bottom: 4px;
+  color: #a7b6cb;
+  font-size: 10px;
+  letter-spacing: .19em;
+}
+.reader-header h2 { font-size: clamp(15px, 1.65vw, 23px); font-weight: 650; line-height: 1.3; }
+.reader-actions, .reader-pagination { display: flex; flex: none; align-items: center; gap: 8px; }
+.reader-button, .reader-nav select {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 5px 11px;
+  border: 1px solid #313b4b;
+  border-radius: 7px;
+  background: #161c25;
+  color: #e3eaf5;
+  font: inherit;
+  font-size: 12px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.reader-button:hover, .reader-nav select:hover, .reader-button[aria-pressed="true"] { background: #222e40; border-color: #536682; }
+.reader-button:disabled { opacity: .36; cursor: default; }
+.reader-button svg { width: 16px; height: 16px; flex: none; }
+.reader-close { width: 40px; padding: 0; }
+.reader-nav select { color-scheme: dark; }
+.reader-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  min-height: 0;
+  padding: clamp(8px, 1.5vw, 22px);
+  background: radial-gradient(ellipse at 50% 42%, #181d27 0%, #0a0d12 78%);
+  overscroll-behavior: contain;
+  touch-action: pan-y pinch-zoom;
+}
+.reader-stage:focus-visible { outline-offset: -3px; }
+.reader-stage img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  box-shadow: 0 10px 42px #0008;
+  outline: 1px solid #c4d4ee29;
+  user-select: none;
+}
+.reader-stage.is-zoomed { display: block; overflow: auto; touch-action: auto; }
+.reader-stage.is-zoomed img {
+  width: max(100%, clamp(980px, 145vw, 1920px));
+  height: auto;
+  max-width: none;
+  max-height: none;
+  margin-inline: auto;
+}
+.reader-footer { border-top: 1px solid #262d39; background: #10141b; }
+.reader-progress { display: block; width: 100%; height: 2px; appearance: none; border: 0; background: #202733; }
+.reader-progress::-webkit-progress-bar { background: #202733; }
+.reader-progress::-webkit-progress-value { background: #9cbcf3; }
+.reader-progress::-moz-progress-bar { background: #9cbcf3; }
+.reader-thumbs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 12px clamp(12px, 2.3vw, 30px) 7px;
+  scrollbar-width: thin;
+  scrollbar-color: #424e60 transparent;
+  overscroll-behavior-x: contain;
+}
+.reader-thumb {
+  position: relative;
+  flex: 0 0 clamp(68px, 7.1vw, 103px);
+  aspect-ratio: 16 / 9;
+  padding: 0;
+  border: 1px solid #354053;
+  border-radius: 5px;
+  background: #141a23;
+  cursor: pointer;
+}
+.reader-thumb img { display: block; width: 100%; height: 100%; border-radius: inherit; opacity: .68; }
+.reader-thumb span {
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: #0a0d15e6;
+  color: #e3eaf6;
+  font-size: 9px;
+}
+.reader-thumb:hover img, .reader-thumb[aria-current="page"] img { opacity: 1; }
+.reader-thumb[aria-current="page"] { border-color: #bdd5ff; box-shadow: 0 0 0 1px #bdd5ff; }
+.reader-thumb:focus-visible { outline-offset: 2px; }
+.reader-nav {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  padding-block: 8px 10px;
+}
+.reader-tip, .reader-total { color: #9daabe; font-size: 11px; }
+.reader-total { justify-self: end; }
+.reader-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+@media (max-width: 680px) {
+  .portfolio-reader { width: calc(100% - 12px); height: min(calc(100dvh - 12px), calc(56vw + 190px)); border-radius: 10px; }
+  .portfolio-reader:has(.is-zoomed) { height: calc(100dvh - 12px); }
+  .reader-header { min-height: 66px; gap: 8px; padding-block: 8px; }
+  .reader-kicker { font-size: 9px; }
+  .reader-actions, .reader-pagination { gap: 5px; }
+  .reader-button, .reader-nav select { padding-inline: 8px; }
+  .reader-close { padding: 0; }
+  .reader-nav { display: flex; justify-content: center; }
+  .reader-tip, .reader-total { display: none; }
+}
+</style>
+<style>
+.vibe-projects { max-width: none; padding: 24px 0 16px; }
+.vibe-projects .project-cover-image { background: var(--panel-2); }
+@media (max-width: 680px) { .vibe-projects { padding-top: 18px; } }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="brand">GONG<b>.</b>HANGYU</div>
+  <div class="links">
+    <a href="#about">ABOUT</a>
+    <a href="#work">WORK</a>
+    <a href="#vibe-coding">VIBE CODING</a>
+    <a href="mailto:871585996@qq.com">CONTACT</a>
+  </div>
+</nav>
+
+<section class="cover">
+  <canvas id="dots"></canvas>
+  <div class="vignette"></div>
+  <div class="top">Design</div>
+  <div class="title">
+    <h1 id="bigtitle"></h1>
+    <div class="sub">巩航宇 · Hangyu Gong</div>
+  </div>
+  <div class="year">2026</div>
+  <a class="scrolldown" href="#about">SCROLL<span class="bar"></span></a>
+</section>
+
+<section class="intro" id="about">
+  <canvas id="aboutgrid"></canvas>
+  <div class="intro-inner">
+  <button class="about-trigger reveal" id="aboutTrigger" aria-expanded="false" aria-controls="aboutFold">
+    <span class="at-label">个人介绍 <span class="at-en">/ About</span></span>
+  </button>
+
+  <div class="about-fold" id="aboutFold">
+  <div class="about-eyebrow">用户体验与产品设计 · UX &amp; Product Design</div>
+  <h2 class="about-name">巩航宇<span class="en">Hangyu&nbsp;Gong</span></h2>
+  <p class="about-lead">
+    关注<em>真实使用场景中的体验与产品设计</em>。项目涵盖地摊线上平台、工业安监巡检、应急逃生与适老助行，
+    从用户调研和流程梳理出发，通过界面原型、建模与渲染呈现设计方案。
+  </p>
+  <div class="about-meta">
+    <div class="meta-row"><span class="ml">方向</span><span class="mv">UX 设计 · 工业设计 · 平面创意</span></div>
+    <div class="meta-row"><span class="ml">联系</span><span class="mv"><a href="mailto:871585996@qq.com">871585996@qq.com</a></span></div>
+  </div>
+  </div>
+  </div>
+</section>
+
+<section class="work" id="work" aria-label="作品集">
+  <section aria-labelledby="index-title">
+    <div class="sec-head">
+      <h2 id="index-title">Project Index<span class="zh">作品目录</span></h2>
+      <button class="toc-all" type="button" aria-haspopup="dialog" data-pages="1:102" data-reader-title="巩航宇 · 个人作品集">完整作品集 · 102 页 ↗</button>
+    </div>
+    <div class="toc">
+    <div class="toc-scroll" role="group" aria-label="作品目录，可横向滚动" tabindex="0">
+      <div class="toc-spread">
+        <div class="toc-sheet">
+          <img src="assets/demos/project-index.webp" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+          <div class="toc-links"><a class="toc-link" href="#project-01" aria-haspopup="dialog" data-pages="5:26" data-reader-title="01 · 地摊管控系统 UX 设计" aria-label="查看 01 地摊管控系统 UX 设计"><span>查看项目 ↗</span></a><a class="toc-link" href="#project-02" aria-haspopup="dialog" data-pages="27:40" data-reader-title="02 · 智慧安监巡检 UX 设计" aria-label="查看 02 智慧安监巡检 UX 设计"><span>查看项目 ↗</span></a><a class="toc-link" href="#project-03" aria-haspopup="dialog" data-pages="41:54" data-reader-title="03 · 火灾紧急逃生设计" aria-label="查看 03 火灾紧急逃生设计"><span>查看项目 ↗</span></a><a class="toc-link" href="#project-04" aria-haspopup="dialog" data-pages="55:68" data-reader-title="04 · 适老化助行产品设计" aria-label="查看 04 适老化助行产品设计"><span>查看项目 ↗</span></a></div>
+        </div>
+        <div class="toc-sheet">
+          <img data-portfolio-page="4" src="assets/pages/page-004.webp" alt="" width="2400" height="1350" loading="lazy" decoding="async">
+          <div class="toc-links">
+            <a class="toc-link" href="#project-05" aria-haspopup="dialog" data-pages="69:79" data-reader-title="05 · 医疗废物收集产品设计" aria-label="查看 05 医疗废物收集产品设计"><span>查看项目 ↗</span></a><a class="toc-link" href="#project-06" aria-haspopup="dialog" data-pages="80:87" data-reader-title="06 · 流动导向系统设计" aria-label="查看 06 流动导向系统设计"><span>查看项目 ↗</span></a><a class="toc-link" href="#project-07" aria-haspopup="dialog" data-pages="88:100" data-reader-title="07 · 平面创意设计作品" aria-label="查看 07 平面创意设计作品"><span>查看项目 ↗</span></a>
+            <a class="toc-link" href="#vibe-coding" aria-label="00 · Vibe Coding 项目展示"><span>Vibe Coding ↓</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <section class="project-showcase" aria-labelledby="showcase-title">
+    <div class="sec-head">
+      <h2 id="showcase-title">Project Showcase<span class="zh">项目展示</span></h2>
+      <div class="count">07 PROJECTS</div>
+    </div>
+  <div class="project-cover-grid">
+    <a class="project-cover" id="project-01" href="#project-01" aria-haspopup="dialog" data-pages="5:26" data-reader-title="01 · 地摊管控系统 UX 设计" aria-label="查看 01 地摊管控系统 UX 设计">
+      <div class="project-cover-image"><img data-portfolio-page="5" src="assets/pages/page-005.webp" alt="" width="2400" height="1350" loading="lazy" decoding="async"></div>
+      <div class="project-cover-meta">
+        <span class="project-cover-number">01</span>
+        <div><h3>PopCart 觅摊</h3><p>地摊管控系统 UX 设计</p></div>
+        <span class="project-cover-arrow" aria-hidden="true">↗</span>
+      </div>
+    </a>
+    <a class="project-cover" id="project-02" href="#project-02" aria-haspopup="dialog" data-pages="27:40" data-reader-title="02 · 智慧安监巡检 UX 设计" aria-label="查看 02 智慧安监巡检 UX 设计">
+      <div class="project-cover-image"><img data-portfolio-page="27" src="assets/pages/page-027.webp" alt="" width="2400" height="1350" loading="lazy" decoding="async"></div>
+      <div class="project-cover-meta">
+        <span class="project-cover-number">02</span>
+        <div><h3>SiteGuard Copilot</h3><p>智慧安监巡检 UX 设计</p></div>
+        <span class="project-cover-arrow" aria-hidden="true">↗</span>
+      </div>
+    </a>
+    <a class="project-cover" id="project-03" href="#project-03" aria-haspopup="dialog" data-pages="41:54" data-reader-title="03 · 火灾紧急逃生设计" aria-label="查看 03 火灾紧急逃生设计">
+      <div class="project-cover-image"><img data-portfolio-page="41" src="assets/pages/page-041.webp" alt="" width="2400" height="1350" loading="lazy" decoding="async"></div>
+      <div class="project-cover-meta">
+        <span class="project-cover-number">03</span>
+        <div><h3>Fire Escape Pack</h3><p>火灾紧急逃生设计</p></div>
+        <span class="project-cover-arrow" aria-hidden="true">↗</span>
+      </div>
+    </a>
+    <a class="project-cover" id="project-04" href="#project-04" aria-haspopup="dialog" data-pages="55:68" data-reader-title="04 · 适老化助行产品设计" aria-label="查看 04 适老化助行产品设计">
+      <div class="project-cover-image"><img data-portfolio-page="55" src="assets/pages/page-055.webp" alt="" width="2400" height="1350" loading="lazy" decoding="async"></div>
+      <div class="project-cover-meta">
+        <span class="project-cover-number">04</span>
+        <div><h3>AlterCare</h3><p>适老化助行产品设计</p></div>
+        <span class="project-cover-arrow" aria-hidden="true">↗</span>
+      </div>
+    </a>
+    <a class="project-cover" id="project-05" href="#project-05" aria-haspopup="dialog" data-pages="69:79" data-reader-title="05 · 医疗废物收集产品设计" aria-label="查看 05 医疗废物收集产品设计">
+      <div class="project-cover-image"><img data-portfolio-page="69" src="assets/pages/page-069.webp" alt="" width="2400" height="1350" loading="lazy" decoding="async"></div>
+      <div class="project-cover-meta">
+        <span class="project-cover-number">05</span>
+        <div><h3>Medical Cart</h3><p>医疗废物收集产品设计</p></div>
+        <span class="project-cover-arrow" aria-hidden="true">↗</span>
+      </div>
+    </a>
+    <a class="project-cover" id="project-06" href="#project-06" aria-haspopup="dialog" data-pages="80:87" data-reader-title="06 · 流动导向系统设计" aria-label="查看 06 流动导向系统设计">
+      <div class="project-cover-image"><img data-portfolio-page="80" src="assets/pages/page-080.webp" alt="" width="2400" height="1350" loading="lazy" decoding="async"></div>
+      <div class="project-cover-meta">
+        <span class="project-cover-number">06</span>
+        <div><h3>Guidoor Flex</h3><p>流动导向系统设计</p></div>
+        <span class="project-cover-arrow" aria-hidden="true">↗</span>
+      </div>
+    </a>
+    <a class="project-cover" id="project-07" href="#project-07" aria-haspopup="dialog" data-pages="88:100" data-reader-title="07 · 平面创意设计作品" aria-label="查看 07 平面创意设计作品">
+      <div class="project-cover-image"><img data-portfolio-page="88" src="assets/pages/page-088.webp" alt="" width="2400" height="1350" loading="lazy" decoding="async"></div>
+      <div class="project-cover-meta">
+        <span class="project-cover-number">07</span>
+        <div><h3>Graphic Works</h3><p>平面创意设计作品</p></div>
+        <span class="project-cover-arrow" aria-hidden="true">↗</span>
+      </div>
+    </a>
+  </div>
+  </section>
+</section>
+
+<section class="gallery-entry reveal" id="vibe-coding" aria-labelledby="vibe-title">
+  <div class="ge-head">
+    <h2 id="vibe-title">Vibe Coding<span class="zh">项目展示</span></h2>
+    <div class="ge-note">02 LIVE DEMOS</div>
+  </div>
+  <div class="project-cover-grid vibe-projects">
+    <a class="project-cover demo-card" href="https://wylsbwjz.github.io/dream-house-demo/" target="_blank" rel="noopener noreferrer" aria-label="打开 Dream House Demo（新标签页）">
+      <div class="project-cover-image"><img src="assets/demos/dream-house.webp" alt="" width="1440" height="810" loading="lazy" decoding="async"></div>
+      <div class="project-cover-meta">
+        <span class="project-cover-number">01</span>
+        <div><h3>Dream House</h3><p>AI 家居方案协同演示</p></div>
+        <span class="project-cover-arrow" aria-hidden="true">↗</span>
+      </div>
+    </a>
+    <a class="project-cover demo-card" href="https://wylsbwjz.github.io/zhixun-copilot-demo/#/" target="_blank" rel="noopener noreferrer" aria-label="打开 智巡 Copilot Demo（新标签页）">
+      <div class="project-cover-image"><img src="assets/demos/zhixun-copilot.webp" alt="" width="1440" height="810" loading="lazy" decoding="async"></div>
+      <div class="project-cover-meta">
+        <span class="project-cover-number">02</span>
+        <div><h3>智巡 Copilot</h3><p>工业安全巡检与整改协作演示</p></div>
+        <span class="project-cover-arrow" aria-hidden="true">↗</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="ct">
+    <a href="mailto:871585996@qq.com">871585996@qq.com</a>
+
+  </div>
+  <div class="cr">© 2026 HANGYU GONG</div>
+</footer>
+
+
+<script>
+(function(){
+  const word="PORTFOLIO";const h=document.getElementById('bigtitle');
+  [...word].forEach((c,i)=>{const s=document.createElement('span');s.textContent=c;s.style.animationDelay=(0.25+i*0.06)+'s';h.appendChild(s)});
+})();
+
+/* about-section proximity scale grid */
+(function(){
+  const cv=document.getElementById('aboutgrid');if(!cv)return;
+  const ctx=cv.getContext('2d');const host=document.getElementById('about');
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  let W,H,DPR,cols,rows,pts=[];
+  const GAP=26,R=1.4,MAXR=5.8,RADIUS=160,PUSH=18;
+  let mx=-9999,my=-9999,active=false;
+  function build(){
+    DPR=Math.min(devicePixelRatio||1,2);
+    const w=host.clientWidth,h=host.clientHeight;
+    W=cv.width=w*DPR;H=cv.height=h*DPR;cv.style.width=w+'px';cv.style.height=h+'px';
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    cols=Math.ceil(w/GAP)+1;rows=Math.ceil(h/GAP)+1;pts=[];
+    for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){pts.push({ox:x*GAP,oy:y*GAP,x:x*GAP,y:y*GAP,vx:0,vy:0,r:R})}
+  }
+  build();addEventListener('resize',build);addEventListener('load',build);setTimeout(build,400);
+  host.addEventListener('mousemove',e=>{const r=host.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top;active=true});
+  host.addEventListener('mouseleave',()=>{active=false;mx=-9999;my=-9999});
+  function frame(){
+    ctx.clearRect(0,0,W,H);
+    for(const p of pts){
+      const dx=p.ox-mx,dy=p.oy-my,d=Math.hypot(dx,dy)||1;
+      let target=R,tx=p.ox,ty=p.oy;
+      if(active&&d<RADIUS){const t=1-d/RADIUS;target=R+(MAXR-R)*(t*t);const push=PUSH*(t*t);tx=p.ox+(dx/d)*push;ty=p.oy+(dy/d)*push}
+      p.vx=(p.vx+(tx-p.x)*0.12)*0.78;p.vy=(p.vy+(ty-p.y)*0.12)*0.78;p.x+=p.vx;p.y+=p.vy;
+      p.r+=(target-p.r)*0.18;
+      const lum=(p.r-R)/(MAXR-R),c=120+lum*135,a=0.10+lum*0.62;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba('+c+','+c+','+(c+10)+','+a+')';ctx.fill();
+    }
+    requestAnimationFrame(frame);
+  }
+  if(reduce){for(const p of pts){ctx.beginPath();ctx.arc(p.x,p.y,R,0,Math.PI*2);ctx.fillStyle='rgba(120,120,130,.12)';ctx.fill()}}else frame();
+})();
+
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>{nav.classList.toggle('show',scrollY>innerHeight*0.5)},{passive:true});
+
+/* about: expand / collapse whole block */
+(function(){
+  const btn=document.getElementById('aboutTrigger');
+  const fold=document.getElementById('aboutFold');
+  if(!btn||!fold)return;
+  let open=false;
+  btn.addEventListener('click',()=>{
+    open=!open;
+    btn.classList.toggle('open',open);
+    fold.classList.toggle('open',open);
+    btn.setAttribute('aria-expanded',open);
+    if(open){
+      fold.style.height=fold.scrollHeight+'px';
+      // release to auto after transition so it reflows on resize
+      fold.addEventListener('transitionend',function te(e){
+        if(e.propertyName==='height'){fold.style.height='auto';fold.removeEventListener('transitionend',te);
+          dispatchEvent(new Event('resize'));}  // rebuild about grid at new height
+      });
+    }else{
+      fold.style.height=fold.scrollHeight+'px';  // from auto → fixed, then to 0
+      requestAnimationFrame(()=>{fold.style.height='0px'});
+      fold.addEventListener('transitionend',function te(e){
+        if(e.propertyName==='height'){fold.removeEventListener('transitionend',te);
+          dispatchEvent(new Event('resize'));}
+      });
+    }
+  });
+  addEventListener('resize',()=>{if(open&&fold.style.height!=='auto'&&fold.style.height!=='0px')fold.style.height='auto'});
+})();
+
+
+
+
+
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -5% 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+setTimeout(()=>document.querySelectorAll('.reveal:not(.in)').forEach(el=>{const r=el.getBoundingClientRect();if(r.top<innerHeight*1.2)el.classList.add('in')}),1200);
+</script>
+<script >
+/* Self-contained silver particle surface. No external renderer or network assets. */
+(() => {
+  const canvas = document.getElementById('dots'), host = document.querySelector('.cover');
+  if (!canvas || !host) return;
+  canvas.setAttribute('aria-hidden', 'true');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  let width = 1, height = 1, dpr = 1, visible = true, frameId = 0, last = 0, time = 0;
+  let active = false, strength = 0, mx = 0, my = 0, tx = 0, ty = 0;
+  const gl = canvas.getContext('webgl', {alpha:true,antialias:false,powerPreference:'low-power'});
+  let render, resizeRenderer;
+  if (gl) {
+    const vertex = `
+      precision highp float;
+      attribute vec4 seed;
+      uniform vec2 viewport, mouse;
+      uniform float clock, influence, pixelRatio;
+      varying float light;
+      void main(){
+        float u=seed.x*6.2831853, v=seed.y*6.2831853;
+        float t=clock*.13;
+        float radius=1.02+.14*sin(3.*u+t)+.055*cos(5.*u-t*.7);
+        float tube=.34+.10*sin(2.*u-t)+.035*sin(7.*u+v+t);
+        float ripple=.028*sin(13.*u+5.*v-t*2.)+.018*cos(19.*v-3.*u+t);
+        float shell=tube+ripple+(seed.z-.5)*.10;
+        vec3 p=vec3((radius+shell*cos(v))*cos(u),(radius+shell*cos(v))*sin(u),shell*sin(v));
+        p.z+=.26*sin(2.*u+t)+.12*cos(3.*u-t);
+        float angle=.45+.10*sin(t*.5);
+        p.yz=mat2(cos(angle),-sin(angle),sin(angle),cos(angle))*p.yz;
+        float tilt=-.50+.06*sin(t*.4);
+        p.xy=mat2(cos(tilt),-sin(tilt),sin(tilt),cos(tilt))*p.xy;
+        p.x+=.10*p.y*p.y;
+        float perspective=2.8/(2.8-p.z);
+        float scale=min(viewport.x*.43,viewport.y*.65);
+        vec2 screen=p.xy*scale*perspective;
+        vec2 delta=screen-mouse;
+        float dist=length(delta), reach=min(viewport.x,viewport.y)*.24;
+        float force=exp(-dist*dist/(reach*reach))*influence;
+        vec2 direction=delta/max(dist,1.);
+        screen+=(direction*46.+vec2(-direction.y,direction.x)*28.)*force;
+        screen+=vec2(sin(v*4.+t*5.),cos(u*5.-t*4.))*force*8.;
+        gl_Position=vec4(screen/viewport*2.,0.,1.);
+        gl_PointSize=(.95+pow(seed.w,4.)*2.3+force*.6)*pixelRatio*perspective;
+        float ridge=pow(abs(sin(v+u*.3)),9.);
+        light=(.22+seed.w*.38+ridge*.65)*(.78+.6*smoothstep(-.5,.65,p.z))+force*.28;
+      }`;
+    const fragment = `
+      precision mediump float;
+      varying float light;
+      void main(){
+        float r=length(gl_PointCoord-.5)*2.;
+        float alpha=(1.-smoothstep(.35,1.,r))*light;
+        gl_FragColor=vec4(.87,.90,1.,alpha);
+      }`;
+    function shader(type, source) {
+      const item=gl.createShader(type); gl.shaderSource(item,source); gl.compileShader(item);
+      if (!gl.getShaderParameter(item,gl.COMPILE_STATUS)) throw new Error('Particle shader unavailable');
+      return item;
+    }
+    try {
+      const program=gl.createProgram();
+      gl.attachShader(program,shader(gl.VERTEX_SHADER,vertex)); gl.attachShader(program,shader(gl.FRAGMENT_SHADER,fragment)); gl.linkProgram(program);
+      if(!gl.getProgramParameter(program,gl.LINK_STATUS)) throw new Error('Particle program unavailable');
+      gl.useProgram(program);
+      const data=new Float32Array(88000*4); let state=918273;
+      for(let i=0;i<data.length;i++){state=(1664525*state+1013904223)>>>0;data[i]=state/4294967296;}
+      gl.bindBuffer(gl.ARRAY_BUFFER,gl.createBuffer()); gl.bufferData(gl.ARRAY_BUFFER,data,gl.STATIC_DRAW);
+      const attribute=gl.getAttribLocation(program,'seed');gl.enableVertexAttribArray(attribute);gl.vertexAttribPointer(attribute,4,gl.FLOAT,false,0,0);
+      const uniforms=Object.fromEntries(['viewport','mouse','clock','influence','pixelRatio'].map(name=>[name,gl.getUniformLocation(program,name)]));
+      gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE);gl.clearColor(0,0,0,0);
+      resizeRenderer=()=>gl.viewport(0,0,canvas.width,canvas.height);
+      render=()=>{
+        gl.clear(gl.COLOR_BUFFER_BIT);gl.uniform2f(uniforms.viewport,width,height);gl.uniform2f(uniforms.mouse,mx,my);
+        gl.uniform1f(uniforms.clock,time);gl.uniform1f(uniforms.influence,strength);gl.uniform1f(uniforms.pixelRatio,dpr);
+        const count=width<680?36000:88000;gl.drawArrays(gl.POINTS,0,count);canvas.dataset.particles=String(count);
+      };
+      canvas.dataset.renderer='webgl';
+    } catch (_) { render=null; }
+  }
+  if (!render) {
+    // A separate canvas is required if a WebGL context was already allocated.
+    const fallback=document.createElement('canvas');fallback.className='particle-fallback';fallback.setAttribute('aria-hidden','true');host.insertBefore(fallback,canvas);canvas.hidden=true;
+    const ctx=fallback.getContext('2d'); if(!ctx)return;
+    canvas.dataset.renderer='canvas2d';
+    resizeRenderer=()=>{fallback.width=canvas.width;fallback.height=canvas.height;fallback.style.width=width+'px';fallback.style.height=height+'px';ctx.setTransform(dpr,0,0,dpr,0,0);};
+    render=()=>{
+      ctx.clearRect(0,0,width,height);const scale=Math.min(width*.43,height*.65);
+      for(let i=0;i<4500;i++){
+        const u=i*2.399963,v=i*.754878,t=time*.13;
+        const radius=1.02+.14*Math.sin(3*u+t)+(.34+.1*Math.sin(2*u-t))*Math.cos(v);
+        let x=Math.cos(u)*radius*scale,y=Math.sin(u)*radius*scale*.83;
+        const dx=x-mx,dy=y-my,d=Math.hypot(dx,dy)||1,f=Math.exp(-(d*d)/(scale*scale*.16))*strength;
+        x+=dx/d*45*f;y+=dy/d*45*f;
+        ctx.fillStyle=`rgba(220,230,255,${.15+(Math.sin(v)*.5+.5)*.4})`;ctx.fillRect(width/2+x,height/2-y,1.2,1.2);
+      }
+      canvas.dataset.particles='4500';
+    };
+  }
+  function resize(){width=host.clientWidth;height=host.clientHeight;dpr=Math.min(devicePixelRatio||1,1.5);canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);canvas.style.width=width+'px';canvas.style.height=height+'px';resizeRenderer();render();}
+  function tick(now){
+    frameId=0;if(!visible||document.hidden||reduce.matches)return;
+    const dt=Math.min((now-last)/1000||.016,.04);last=now;time+=dt;
+    mx+=(tx-mx)*.13;my+=(ty-my)*.13;strength+=((active?1:0)-strength)*.065;
+    render();frameId=requestAnimationFrame(tick);
+  }
+  function sync(){if(frameId)cancelAnimationFrame(frameId);frameId=0;last=performance.now();if(reduce.matches){strength=0;render();}else if(visible&&!document.hidden)frameId=requestAnimationFrame(tick);}
+  host.addEventListener('pointermove',e=>{const box=host.getBoundingClientRect();tx=e.clientX-box.left-width/2;ty=height/2-(e.clientY-box.top);active=true;canvas.dataset.interaction='active';},{passive:true});
+  host.addEventListener('pointerleave',()=>{active=false;canvas.dataset.interaction='idle';});
+  host.addEventListener('pointercancel',()=>{active=false;canvas.dataset.interaction='idle';});
+  addEventListener('blur',()=>{active=false;});
+  addEventListener('resize',resize,{passive:true});document.addEventListener('visibilitychange',sync);reduce.addEventListener('change',sync);
+  new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;sync();},{threshold:0}).observe(host);
+  canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();if(frameId)cancelAnimationFrame(frameId);frameId=0;});
+  canvas.addEventListener('webglcontextrestored',()=>location.reload());
+  canvas.dataset.interaction='idle';resize();sync();
+})();
+
+</script>
+<script >
+/* Only the hovered cover animates; the cover remains a normal navigable link. */
+(() => {
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const fine = matchMedia('(hover: hover) and (pointer: fine)');
+  document.querySelectorAll('.project-cover').forEach((card, cardIndex) => {
+    const frame = card.querySelector('.project-cover-image');
+    const canvas = document.createElement('canvas'); canvas.className = 'card-particles';
+    canvas.setAttribute('aria-hidden', 'true'); frame.appendChild(canvas);
+    const ctx = canvas.getContext('2d'); if (!ctx) return;
+    let width = 1, height = 1, mx = 0, my = 0, tx = 0, ty = 0, raf = 0, active = false, time = 0;
+    let seed = 37913 + cardIndex * 197;
+    const random = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+    const points = Array.from({length:240}, () => ({x:random(),y:random(),size:.5+random()*1.25,phase:random()*Math.PI*2}));
+    function size() {
+      width = frame.clientWidth; height = frame.clientHeight;
+      const ratio = Math.min(devicePixelRatio || 1, 2);
+      canvas.width = Math.round(width * ratio); canvas.height = Math.round(height * ratio);
+      ctx.setTransform(ratio,0,0,ratio,0,0);
+    }
+    function draw() {
+      raf = 0; if (!active || motion.matches || !fine.matches || document.hidden) return;
+      mx += (tx-mx)*.16; my += (ty-my)*.16; time += .016;
+      ctx.clearRect(0,0,width,height);
+      const radius = Math.min(width*.36,160);
+      const glow = ctx.createRadialGradient(mx,my,0,mx,my,radius);
+      glow.addColorStop(0,'rgba(205,224,255,.14)'); glow.addColorStop(.45,'rgba(142,185,255,.05)'); glow.addColorStop(1,'rgba(142,185,255,0)');
+      ctx.fillStyle=glow;ctx.fillRect(0,0,width,height);
+      points.forEach(p => {
+        const x=p.x*width,y=p.y*height,dx=x-mx,dy=y-my,d=Math.hypot(dx,dy)||1;
+        const falloff=Math.max(0,1-d/radius), a=falloff*falloff;
+        if(a<.006)return;
+        const wave=Math.sin(time*2.2+p.phase), push=a*(12+wave*4);
+        const px=x+dx/d*push-dy/d*a*6,py=y+dy/d*push+dx/d*a*6;
+        ctx.fillStyle=`rgba(224,237,255,${a*(.5+wave*.12)})`;
+        ctx.beginPath();ctx.arc(px,py,p.size*(.65+a*.65),0,Math.PI*2);ctx.fill();
+        if(a>.55&&p.size>1.4){ctx.strokeStyle=`rgba(215,233,255,${a*.28})`;ctx.lineWidth=.6;ctx.beginPath();ctx.moveTo(px-3,py);ctx.lineTo(px+3,py);ctx.moveTo(px,py-3);ctx.lineTo(px,py+3);ctx.stroke();}
+      });
+      raf = requestAnimationFrame(draw);
+    }
+    function move(event) {
+      const box=frame.getBoundingClientRect();tx=Math.max(0,Math.min(width,event.clientX-box.left));ty=Math.max(0,Math.min(height,event.clientY-box.top));
+      card.style.setProperty('--rx',((.5-ty/height)*2.4)+'deg');
+      card.style.setProperty('--ry',((tx/width-.5)*3)+'deg');
+    }
+    function stop() {
+      active=false;card.dataset.particles='idle';card.style.setProperty('--rx','0deg');card.style.setProperty('--ry','0deg');
+      if(raf)cancelAnimationFrame(raf);raf=0;
+    }
+    card.addEventListener('pointerenter',event=>{
+      if(!fine.matches||motion.matches||event.pointerType==='touch')return;
+      size();move(event);mx=tx;my=ty;active=true;card.dataset.particles='active';if(!raf)raf=requestAnimationFrame(draw);
+    });
+    card.addEventListener('pointermove',event=>{if(active)move(event);},{passive:true});
+    card.addEventListener('pointerleave',stop);card.addEventListener('pointercancel',stop);
+    addEventListener('blur',stop);addEventListener('resize',()=>{if(active)size();},{passive:true});
+    document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
+    motion.addEventListener('change',stop);fine.addEventListener('change',stop);
+    new IntersectionObserver(entries=>{if(!entries[0].isIntersecting)stop();}).observe(card);
+  });
+})();
+
+</script>
+<script >
+/* Small fading pointer trail. The native cursor and page geometry stay unchanged. */
+(() => {
+  'use strict';
+  if (document.getElementById('qjm-cursor-trail')) return;
+
+  const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const style = document.createElement('style');
+  style.textContent = `
+    #qjm-cursor-trail{position:fixed;inset:0;z-index:2147483647;display:none;
+      overflow:hidden;pointer-events:none!important;user-select:none;
+      margin:0;padding:0;border:0;background:transparent;contain:layout style paint}
+    #qjm-cursor-trail>span{position:absolute;left:0;top:0;display:block;
+      margin:0;padding:0;border:0;border-radius:50%;pointer-events:none!important;
+      background:#e3f0ff;opacity:0;box-shadow:0 0 5px rgba(214,234,255,.18);
+      will-change:transform,opacity}
+    @media(prefers-reduced-motion:reduce),(hover:none),(pointer:coarse){
+      #qjm-cursor-trail{display:none!important}
+    }
+  `;
+  (document.head || document.documentElement).appendChild(style);
+
+  const layer = document.createElement('div');
+  layer.id = 'qjm-cursor-trail';
+  layer.setAttribute('aria-hidden', 'true');
+  layer.inert = true;
+  const dots = Array.from({ length: 12 }, (_, i) => {
+    const element = document.createElement('span');
+    const size = 4.2 - i * .22;
+    element.style.width = `${size}px`;
+    element.style.height = `${size}px`;
+    if (i < 3) element.style.background = '#f2f7ff';
+    layer.appendChild(element);
+    return { element, x: 0, y: 0, opacity: .5 * (1 - i / 14) };
+  });
+  document.body.appendChild(layer);
+
+  let frameId = 0, lastFrame = 0, lastMove = 0;
+  let pointerX = 0, pointerY = 0, initialized = false;
+  const allowed = () => finePointer.matches && !reducedMotion.matches && !document.hidden;
+
+  // A normal body child is below a modal dialog's top layer. Move this purely
+  // decorative layer into the active dialog so the trail remains visible there.
+  function syncHost(eventTarget) {
+    const targetDialog = eventTarget instanceof Element ? eventTarget.closest('dialog[open]') : null;
+    const openDialogs = document.querySelectorAll('dialog[open]');
+    const host = targetDialog || openDialogs[openDialogs.length - 1] || document.body;
+    if (layer.parentNode !== host) host.appendChild(layer);
+  }
+
+  function stopDrawing() {
+    if (frameId) cancelAnimationFrame(frameId);
+    frameId = 0; lastFrame = 0;
+    layer.style.display = 'none';
+    for (const dot of dots) dot.element.style.opacity = '0';
+  }
+
+  function clear() { stopDrawing(); initialized = false; }
+
+  function draw(time) {
+    frameId = 0;
+    if (!allowed()) { clear(); return; }
+    const elapsed = lastFrame ? Math.min(48, Math.max(1, time - lastFrame)) : 16;
+    lastFrame = time;
+    const fade = Math.max(0, 1 - Math.max(0, time - lastMove - 80) / 340);
+    if (!fade) { stopDrawing(); return; }
+    const follow = 1 - Math.exp(-elapsed / 35);
+    let x = pointerX, y = pointerY, maxDistance = 0;
+    for (const dot of dots) {
+      const dx = x - dot.x, dy = y - dot.y;
+      const distance = Math.hypot(dx, dy);
+      maxDistance = Math.max(maxDistance, distance);
+      dot.x += dx * follow;
+      dot.y += dy * follow;
+      // As each point settles, it fades rather than forming a stationary halo.
+      dot.element.style.opacity = String(dot.opacity * fade * Math.min(1, distance / 1.4));
+      dot.element.style.transform = `translate3d(${dot.x}px,${dot.y}px,0) translate(-50%,-50%)`;
+      x = dot.x; y = dot.y;
+    }
+    if (maxDistance < .08) { stopDrawing(); return; }
+    frameId = requestAnimationFrame(draw);
+  }
+
+  document.addEventListener('pointermove', event => {
+    if (!allowed() || event.pointerType !== 'mouse') { clear(); return; }
+    if (!Number.isFinite(event.clientX) || !Number.isFinite(event.clientY)) return;
+    syncHost(event.target);
+    pointerX = Math.max(0, Math.min(innerWidth, event.clientX));
+    pointerY = Math.max(0, Math.min(innerHeight, event.clientY));
+    lastMove = performance.now();
+    if (!initialized) {
+      for (const dot of dots) { dot.x = pointerX; dot.y = pointerY; }
+      initialized = true;
+    }
+    layer.style.display = 'block';
+    if (!frameId) frameId = requestAnimationFrame(draw);
+  }, { passive: true, capture: true });
+
+  document.documentElement.addEventListener('pointerleave', clear);
+  document.addEventListener('pointercancel', clear, { passive: true });
+  addEventListener('pointerout', event => { if (!event.relatedTarget) clear(); }, { passive: true });
+  addEventListener('blur', clear);
+  addEventListener('resize', clear, { passive: true });
+  document.addEventListener('visibilitychange', clear);
+  finePointer.addEventListener('change', clear);
+  reducedMotion.addEventListener('change', clear);
+
+  const observer = new MutationObserver(records => {
+    if (records.some(record => record.target.tagName === 'DIALOG')) {
+      clear();
+      syncHost();
+    }
+  });
+  observer.observe(document.documentElement, { subtree: true, attributes: true, attributeFilter: ['open'] });
+  syncHost();
+})();
+
+</script>
+<dialog class="portfolio-reader" id="portfolio-reader" aria-labelledby="reader-title">
+  <header class="reader-header">
+    <div class="reader-heading">
+      <p class="reader-kicker" id="reader-kicker"></p>
+      <h2 id="reader-title"></h2>
+    </div>
+    <div class="reader-actions">
+      <button class="reader-button" id="reader-zoom" type="button" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.25"/><path d="m15 15 5 5M10.5 7.5v6m-3-3h6"/></svg>
+        <span id="reader-zoom-label">放大</span>
+      </button>
+      <form method="dialog">
+        <button class="reader-button reader-close" type="submit" aria-label="关闭阅读器" title="关闭（Esc）" autofocus>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+        </button>
+      </form>
+    </div>
+  </header>
+  <div class="reader-stage" id="reader-stage" tabindex="0" role="region" aria-label="作品集页面，可左右滑动翻页">
+    <img id="reader-image" alt="" draggable="false">
+  </div>
+  <div class="reader-footer">
+    <progress class="reader-progress" id="reader-progress" aria-label="阅读进度"></progress>
+    <div class="reader-thumbs" id="reader-thumbs" role="group" aria-label="页面缩略图"></div>
+    <div class="reader-nav">
+      <span class="reader-tip" aria-hidden="true">← → 翻页　·　Esc 关闭</span>
+      <div class="reader-pagination">
+        <button class="reader-button" id="reader-prev" type="button"><span aria-hidden="true">←</span> 上一页</button>
+        <select id="reader-page" aria-label="跳转到指定页码"></select>
+        <button class="reader-button" id="reader-next" type="button">下一页 <span aria-hidden="true">→</span></button>
+      </div>
+      <span class="reader-total" id="reader-total"></span>
+      <span class="reader-status" id="reader-status" role="status"></span>
+    </div>
+  </div>
+</dialog>
+<script>
+(() => {
+  const get = id => document.getElementById(id);
+  const dialog = get('portfolio-reader');
+  const title = get('reader-title');
+  const kicker = get('reader-kicker');
+  const stage = get('reader-stage');
+  const image = get('reader-image');
+  const status = get('reader-status');
+  const progress = get('reader-progress');
+  const tray = get('reader-thumbs');
+  const select = get('reader-page');
+  const previous = get('reader-prev');
+  const next = get('reader-next');
+  const zoom = get('reader-zoom');
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const pad = page => String(page).padStart(2, '0');
+  let start, end, page, touch, animation;
+  let version = 0;
+
+  function setZoom(enabled) {
+    stage.classList.toggle('is-zoomed', enabled);
+    zoom.setAttribute('aria-pressed', String(enabled));
+    get('reader-zoom-label').textContent = enabled ? '适应屏幕' : '放大';
+    stage.setAttribute('aria-label', enabled ? '放大的作品集页面，可滚动查看' : '作品集页面，可左右滑动翻页');
+    stage.scrollTo(0, 0);
+  }
+
+  function showPage(target, focusThumb = false) {
+    if (target < start || target > end || target === page) return;
+    const oldThumb = tray.children[page - start];
+    if (oldThumb) {
+      oldThumb.removeAttribute('aria-current');
+      oldThumb.tabIndex = -1;
+    }
+    const animate = page !== undefined && !motion.matches;
+    page = target;
+    const position = page - start;
+    const label = `第 ${position + 1} / ${end - start + 1} 页`;
+    image.alt = `${title.textContent} · ${label}`;
+    animation?.cancel();
+    image.src = `assets/pages/page-${String(page).padStart(3, '0')}.webp`;
+    const ticket = ++version;
+    if (animate) {
+      image.decode().then(() => {
+        if (ticket === version && dialog.open) animation = image.animate([{opacity:.7},{opacity:1}], {duration:170,easing:'ease-out'});
+      }).catch(() => {});
+    }
+    status.textContent = label;
+    select.value = String(page);
+    previous.disabled = page === start;
+    next.disabled = page === end;
+    progress.value = position + 1;
+    stage.scrollTo(0, 0);
+
+    const thumb = tray.children[position];
+    thumb.setAttribute('aria-current', 'page');
+    thumb.tabIndex = 0;
+    const tile = thumb.getBoundingClientRect();
+    const strip = tray.getBoundingClientRect();
+    const leftGap = tile.left - strip.left;
+    const rightGap = strip.right - tile.right;
+    if (leftGap < 10 || rightGap < 10) {
+      tray.scrollBy({left: leftGap - (strip.width - tile.width) / 2, behavior: motion.matches ? 'instant' : 'smooth'});
+    }
+    if (focusThumb) thumb.focus({preventScroll: true});
+  }
+
+  function open(button) {
+    [start, end] = button.dataset.pages.split(':').map(Number);
+    const total = end - start + 1;
+    const caseTitle = /^(\d+) · (.+)$/.exec(button.dataset.readerTitle);
+    kicker.textContent = caseTitle ? `PROJECT ${caseTitle[1]} / CASE STUDY` : 'DESIGN PORTFOLIO / FULL EDITION';
+    title.textContent = caseTitle ? caseTitle[2] : button.dataset.readerTitle;
+    const thumbs = document.createDocumentFragment();
+    const options = document.createDocumentFragment();
+    for (let number = start; number <= end; number++) {
+      const position = number - start + 1;
+      const thumb = document.createElement('button');
+      thumb.type = 'button';
+      thumb.className = 'reader-thumb';
+      thumb.tabIndex = -1;
+      thumb.setAttribute('aria-label', `第 ${position} 页`);
+      const preview = new Image(180, 101);
+      preview.src = `assets/thumbs/page-${String(number).padStart(3, '0')}.webp`;
+      preview.alt = '';
+      preview.decoding = 'async';
+      preview.loading = 'lazy';
+      const tag = document.createElement('span');
+      tag.textContent = pad(position);
+      thumb.append(preview, tag);
+      thumb.addEventListener('click', () => showPage(number));
+      thumbs.append(thumb);
+      options.append(new Option(`${pad(position)} / ${pad(total)}`, String(number)));
+    }
+    tray.replaceChildren(thumbs);
+    select.replaceChildren(options);
+    progress.max = total;
+    get('reader-total').textContent = `共 ${total} 页`;
+    page = undefined;
+    setZoom(false);
+    dialog.showModal();
+    tray.scrollLeft = 0;
+    showPage(start);
+  }
+
+  document.querySelectorAll('[data-pages]').forEach(button => {
+    button.addEventListener('click', event => {
+      if (button instanceof HTMLAnchorElement) {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+      }
+      open(button);
+    });
+  });
+
+  previous.addEventListener('click', () => showPage(page - 1));
+  next.addEventListener('click', () => showPage(page + 1));
+  select.addEventListener('change', () => showPage(Number(select.value)));
+  zoom.addEventListener('click', () => {
+    const enabled = zoom.getAttribute('aria-pressed') === 'false';
+    setZoom(enabled);
+    if (enabled) stage.focus({preventScroll: true});
+  });
+  dialog.addEventListener('keydown', event => {
+    if (event.target === select || (event.target === stage && stage.classList.contains('is-zoomed'))) return;
+    let target;
+    if (event.key === 'ArrowLeft') target = page - 1;
+    if (event.key === 'ArrowRight') target = page + 1;
+    if (event.key === 'Home') target = start;
+    if (event.key === 'End') target = end;
+    if (target !== undefined) {
+      event.preventDefault();
+      showPage(target, tray.contains(event.target));
+    }
+  });
+  stage.addEventListener('touchstart', event => {
+    touch = event.touches.length === 1 && !stage.classList.contains('is-zoomed') ? event.touches[0] : null;
+  }, {passive: true});
+  stage.addEventListener('touchcancel', () => { touch = null; }, {passive: true});
+  stage.addEventListener('touchend', event => {
+    if (!touch || event.touches.length) return;
+    const endTouch = [...event.changedTouches].find(point => point.identifier === touch.identifier);
+    if (endTouch) {
+      const dx = endTouch.clientX - touch.clientX;
+      const dy = endTouch.clientY - touch.clientY;
+      if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.45) showPage(page + (dx < 0 ? 1 : -1));
+    }
+    touch = null;
+  }, {passive: true});
+  dialog.addEventListener('click', event => {
+    if (event.target !== dialog) return;
+    const rect = dialog.getBoundingClientRect();
+    if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close();
+  });
+  dialog.addEventListener('close', () => {
+    if (dialog.open) return;
+    version++;
+    animation?.cancel();
+    image.removeAttribute('src');
+    tray.replaceChildren();
+    touch = null;
+  });
+})();
+</script>
+</body>
+</html>
