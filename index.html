@@ -51,8 +51,8 @@
   .about-eyebrow{font-family:'Portfolio Sans',var(--mono);font-size:11px;letter-spacing:.32em;color:var(--ink-3);text-transform:uppercase;margin-bottom:40px}
   .about-name{font-family:'Portfolio Sans',var(--disp);font-weight:300;line-height:1;font-size:clamp(56px,11vw,150px);letter-spacing:.02em;color:#fff;display:flex;align-items:baseline;flex-wrap:wrap;gap:0 .35em}
   .about-name .en{font-family:'Portfolio Sans',var(--disp);font-weight:300;font-size:.28em;letter-spacing:.18em;color:var(--ink-3);text-transform:uppercase}
-  .about-lead{font-size:clamp(16px,1.9vw,21px);color:var(--ink-2);max-width:640px;margin-top:48px;font-weight:300;line-height:1.85}
-  .about-lead em{font-style:normal;color:#fff;font-weight:400}
+  .about-lead{font-size:clamp(15px,1.2vw,16px);color:#cdd6e4;max-width:660px;margin-top:clamp(28px,4vw,42px);font-weight:400;line-height:1.9}
+  .about-lead p+p{margin-top:.8em}
   .about-meta{margin-top:64px;max-width:560px;border-top:1px solid var(--line-soft)}
   .about-meta .meta-row{display:flex;gap:28px;padding:18px 2px;border-bottom:1px solid var(--line-soft)}
   .about-meta .ml{font-family:'Portfolio Sans',var(--mono);font-size:11px;letter-spacing:.18em;color:var(--ink-3);text-transform:uppercase;min-width:64px;padding-top:3px}
@@ -658,10 +658,11 @@ body:has(.portfolio-reader[open]) { overflow: hidden; }
   <div class="about-fold" id="aboutFold">
   <div class="about-eyebrow">用户体验与产品设计 · UX &amp; Product Design</div>
   <h2 class="about-name">巩航宇<span class="en">Hangyu&nbsp;Gong</span></h2>
-  <p class="about-lead">
-    关注<em>真实使用场景中的体验与产品设计</em>。项目涵盖地摊线上平台、工业安监巡检、应急逃生与适老助行，
-    从用户调研和流程梳理出发，通过界面原型、建模与渲染呈现设计方案。
-  </p>
+  <div class="about-lead">
+    <p>巩航宇，来自山东淄博，UX设计师，东南大学硕士研究生，工业设计工程专业。实践主要集中在企业复杂场景和 AI 交互。</p>
+    <p>曾在华为 2012实验室UCD 中心实习，期间参与 IP 网络智能体设计，重点负责重保任务创建与下发，进行深度的 AI 产品交互研究，参与AI for Design设计工具试用和反馈。在中石油昆仑数智实习后搭建了智慧现场安监系统UX设计，作品集中有众多领域的设计项目，积累了多角色协作与人因方面的思考。</p>
+    <p>已搭建全链路 AI 设计工作流，使用大模型做需求拆解、逻辑梳理，依托 AI 工具快速验证高保真原型，输出可落地的智能体交互方案。</p>
+  </div>
   <div class="about-meta">
     <div class="meta-row"><span class="ml">方向</span><span class="mv">UX 设计 · 工业设计 · 平面创意</span></div>
     <div class="meta-row"><span class="ml">联系</span><span class="mv"><a href="mailto:871585996@qq.com">871585996@qq.com</a></span></div>
